@@ -1,7 +1,7 @@
 We made an AI that can play TicTacToe to make sure the technique we are going to use on the Chess AI works properly. Even though the rules of the games are different, we will use the exact same methods and members with similar functioning. The most relevant advancement we have made is the Node class (which is nested in the AI class). The AI is able to analyze the ~300 thousand (9!) possible games of TicTacToe and plays in 3 seconds and plays perfectly. 
 
 1. a class definition - File Game, class Game in line 3
-        This clas is in charge of runnign the Game. I has function that validate the moves and check if the game is over.
+        This class is in charge of runnign the Game. It has function that validate the moves and check if the game is over.
 2. a second class definition - File AI, class AI in line 
         This class controls the AI, it holds the decision-making tree as well as all the functions it needs to operate. 
 3. a third class definition - File AI, class Node (nested in class AI) in line 78

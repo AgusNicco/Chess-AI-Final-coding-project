@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/agus/my-code-dir/TicTacToe AI/TicTacToe AI/Main/Main.csproj": {}
+    "/Users/agus/my-code-dir/Chess/Repository/TicTacToe AI/Main/Main.csproj": {}
   },
   "projects": {
-    "/Users/agus/my-code-dir/TicTacToe AI/TicTacToe AI/Classes/Classes.csproj": {
+    "/Users/agus/my-code-dir/Chess/Repository/TicTacToe AI/Classes/Classes.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/agus/my-code-dir/TicTacToe AI/TicTacToe AI/Classes/Classes.csproj",
+        "projectUniqueName": "/Users/agus/my-code-dir/Chess/Repository/TicTacToe AI/Classes/Classes.csproj",
         "projectName": "Classes",
-        "projectPath": "/Users/agus/my-code-dir/TicTacToe AI/TicTacToe AI/Classes/Classes.csproj",
+        "projectPath": "/Users/agus/my-code-dir/Chess/Repository/TicTacToe AI/Classes/Classes.csproj",
         "packagesPath": "/Users/agus/.nuget/packages/",
-        "outputPath": "/Users/agus/my-code-dir/TicTacToe AI/TicTacToe AI/Classes/obj/",
+        "outputPath": "/Users/agus/my-code-dir/Chess/Repository/TicTacToe AI/Classes/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/agus/.nuget/NuGet/NuGet.Config"
@@ -56,14 +56,14 @@
         }
       }
     },
-    "/Users/agus/my-code-dir/TicTacToe AI/TicTacToe AI/Main/Main.csproj": {
+    "/Users/agus/my-code-dir/Chess/Repository/TicTacToe AI/Main/Main.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/agus/my-code-dir/TicTacToe AI/TicTacToe AI/Main/Main.csproj",
+        "projectUniqueName": "/Users/agus/my-code-dir/Chess/Repository/TicTacToe AI/Main/Main.csproj",
         "projectName": "Main",
-        "projectPath": "/Users/agus/my-code-dir/TicTacToe AI/TicTacToe AI/Main/Main.csproj",
+        "projectPath": "/Users/agus/my-code-dir/Chess/Repository/TicTacToe AI/Main/Main.csproj",
         "packagesPath": "/Users/agus/.nuget/packages/",
-        "outputPath": "/Users/agus/my-code-dir/TicTacToe AI/TicTacToe AI/Main/obj/",
+        "outputPath": "/Users/agus/my-code-dir/Chess/Repository/TicTacToe AI/Main/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/agus/.nuget/NuGet/NuGet.Config"
@@ -78,8 +78,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "/Users/agus/my-code-dir/TicTacToe AI/TicTacToe AI/Classes/Classes.csproj": {
-                "projectPath": "/Users/agus/my-code-dir/TicTacToe AI/TicTacToe AI/Classes/Classes.csproj"
+              "/Users/agus/my-code-dir/Chess/Repository/TicTacToe AI/Classes/Classes.csproj": {
+                "projectPath": "/Users/agus/my-code-dir/Chess/Repository/TicTacToe AI/Classes/Classes.csproj"
               }
             }
           }

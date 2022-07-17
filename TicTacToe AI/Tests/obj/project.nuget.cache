@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "yRlMBTLGw8tN3RIDy8acwUqL+8V9nA6ufY6LtMzwAEIpCbhBXIe22g6jERvkRJnBqo5RodgixKSiDFSkQN6cDA==",
+  "dgSpecHash": "Ru4ohDfX0DXpbjipvN8iWmG7o/Q7ZGWBR9rszHo/SQBBGiaCNtr/Yv1J4DiUFg+7q2JRdIJ1ylHXubvAML8Q2A==",
   "success": true,
-  "projectFilePath": "/Users/agus/my-code-dir/TicTacToe AI/Tests/Tests.csproj",
+  "projectFilePath": "/Users/agus/my-code-dir/Chess/Repository/TicTacToe AI/Tests/Tests.csproj",
   "expectedPackageFiles": [
     "/Users/agus/.nuget/packages/coverlet.collector/3.1.0/coverlet.collector.3.1.0.nupkg.sha512",
     "/Users/agus/.nuget/packages/microsoft.codecoverage/16.11.0/microsoft.codecoverage.16.11.0.nupkg.sha512",

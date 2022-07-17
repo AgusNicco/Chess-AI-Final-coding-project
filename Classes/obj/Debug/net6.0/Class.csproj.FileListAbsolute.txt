@@ -1,0 +1,12 @@
+/Users/agus/my-code-dir/week06-lab/Class/bin/Debug/net6.0/Class.deps.json
+/Users/agus/my-code-dir/week06-lab/Class/bin/Debug/net6.0/Class.dll
+/Users/agus/my-code-dir/week06-lab/Class/bin/Debug/net6.0/ref/Class.dll
+/Users/agus/my-code-dir/week06-lab/Class/bin/Debug/net6.0/Class.pdb
+/Users/agus/my-code-dir/week06-lab/Class/obj/Debug/net6.0/Class.csproj.AssemblyReference.cache
+/Users/agus/my-code-dir/week06-lab/Class/obj/Debug/net6.0/Class.GeneratedMSBuildEditorConfig.editorconfig
+/Users/agus/my-code-dir/week06-lab/Class/obj/Debug/net6.0/Class.AssemblyInfoInputs.cache
+/Users/agus/my-code-dir/week06-lab/Class/obj/Debug/net6.0/Class.AssemblyInfo.cs
+/Users/agus/my-code-dir/week06-lab/Class/obj/Debug/net6.0/Class.csproj.CoreCompileInputs.cache
+/Users/agus/my-code-dir/week06-lab/Class/obj/Debug/net6.0/Class.dll
+/Users/agus/my-code-dir/week06-lab/Class/obj/Debug/net6.0/ref/Class.dll
+/Users/agus/my-code-dir/week06-lab/Class/obj/Debug/net6.0/Class.pdb

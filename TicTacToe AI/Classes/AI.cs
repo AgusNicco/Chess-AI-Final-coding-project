@@ -21,6 +21,7 @@ public class AI
                 Board.Add(ca);
         }
 
+        if (!AiMove) {
         if (Board[0][0] == Skin && Board[0][1] == Skin && Board[0][2] == Skin) return 3; // horizontal check
         if (Board[1][0] == Skin && Board[1][1] == Skin && Board[1][2] == Skin) return 3;
         if (Board[2][0] == Skin && Board[2][1] == Skin && Board[2][2] == Skin) return 3;
@@ -31,8 +32,7 @@ public class AI
 
         if (Board[0][0] == Skin && Board[1][1] == Skin && Board[2][2] == Skin) return 3; // diagonal check
         if (Board[2][0] == Skin && Board[1][1] == Skin && Board[0][2] == Skin) return 3;
-
-
+        } else {
         if (Board[0][0] == EnemySkin && Board[0][1] == EnemySkin && Board[0][2] == EnemySkin) return -3; // horizontal check
         if (Board[1][0] == EnemySkin && Board[1][1] == EnemySkin && Board[1][2] == EnemySkin) return -3;
         if (Board[2][0] == EnemySkin && Board[2][1] == EnemySkin && Board[2][2] == EnemySkin) return -3;
@@ -43,7 +43,7 @@ public class AI
 
         if (Board[0][0] == EnemySkin && Board[1][1] == EnemySkin && Board[2][2] == EnemySkin) return -3; // diagonal check
         if (Board[2][0] == EnemySkin && Board[1][1] == EnemySkin && Board[0][2] == EnemySkin) return -3;
-
+        }
         return 0;
     }
 
@@ -64,10 +64,8 @@ public class AI
             }
         }
         return output;
-
     }
 
-    public static List<Node> TreeOfMoves = new List<Node> { };
     public static int NumberOfNodes = 0;
 
     public class Node
@@ -75,38 +73,38 @@ public class AI
         public bool MyMove;
         public int Layer;
         public double Score;
-        public readonly List<char[]> Position;
+        // public readonly List<char[]> Position;
         public Move? PlayedMove;
         public Move BestMove;
-        public List<Move>? MovesToReachPosition;
+        //public List<Move>? MovesToReachPosition;
         public bool ShouldBranch;
         public List<Node>? BranchOfNodes;
         public bool Propagated = false;
 
-        public Node(List<char[]> position, List<Move> movesToReachPosition = null, bool mymove = true, Move move = null, int layer = 0)
+        public Node(List<char[]> position, bool mymove = true, Move move = null, int layer = 0)
         {
             MyMove = mymove;
             PlayedMove = move;
             Layer = layer;
             NumberOfNodes++;
-            if (movesToReachPosition == null) movesToReachPosition = new List<Move> { };
+            // if (movesToReachPosition == null) movesToReachPosition = new List<Move> { };
 
-            MovesToReachPosition = new List<Move> { };
-            foreach (Move m in movesToReachPosition)
-            {
-                MovesToReachPosition.Add(m);
-            }
-            MovesToReachPosition.Add(move);
+            // MovesToReachPosition = new List<Move> { };
+            // foreach (Move m in movesToReachPosition)
+            // {
+            //     MovesToReachPosition.Add(m);
+            // }
+            // MovesToReachPosition.Add(move);
 
-            Position = DoMove(position, move);
-         
+            List<char[]> Position = DoMove2(position, move);
+
             ShouldBranch = Layer <= AI.SearchDepth;
 
-            // if (Layer == SearchDepth - 1)
-                
+
+
             Score = AI.EvaluatePosition(Position, MyMove);
             // else Score = 0;
-            
+
 
             List<Move> ListOfMoves = AI.GetPossibleMoves(Position, MyMove);
 
@@ -118,8 +116,8 @@ public class AI
 
                 foreach (Move m in ListOfMoves)
                 {
-                    // var NewPosition = Position.Select(ca=>ca.Select(c=>c).ToArray()).ToList();
-                    BranchOfNodes.Add(new Node(Position, MovesToReachPosition, !MyMove, m, Layer + 1));
+                    var NewPosition = Position.Select(ca=>ca.Select(c=>c).ToArray()).ToList();
+                    BranchOfNodes.Add(new Node(NewPosition, !MyMove, m, Layer + 1));
                 }
             }
             else BranchOfNodes = null;
@@ -150,6 +148,27 @@ public class AI
             }
         }
 
+        public List<char[]> DoMove2(List<char[]> pos, Move m)
+        {
+            if (m != null)
+            {
+                switch (m.PlayedByAi)
+                {
+                    case true:
+                        {
+                            pos[m.coordinateY][m.coordinateX] = 'X';
+                            break;
+                        }
+                    case false:
+                        {
+                            pos[m.coordinateY][m.coordinateX] = 'O';
+                            break;
+                        }
+                }
+            }
+            return pos;
+        }
+
         public List<char[]> DoMove(List<char[]> pos, Move m)
         {
             if (m != null)
@@ -171,13 +190,11 @@ public class AI
                     case true:
                         {
                             output[m.coordinateY][m.coordinateX] = 'X';
-                            // IsAiTurn = 2;
                             break;
                         }
                     case false:
                         {
                             output[m.coordinateY][m.coordinateX] = 'O';
-                            // IsAiTurn = 1;
                             break;
                         }
                 }
@@ -197,7 +214,7 @@ public class AI
                 return save;
             }
             return pos;
- 
+
 
         }
 
@@ -205,7 +222,7 @@ public class AI
 
     public static Move GetBestMove(List<char[]> position)
     {
-        Node node = new Node(position, null, true, null, 0);
+        Node node = new Node(position, true, null, 0);
         return node.BestMove;
     }
 }

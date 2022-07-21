@@ -1,0 +1,48 @@
+/Users/agus/my-code-dir/week07-lab/Classes/bin/Debug/net6.0/Classes.deps.json
+/Users/agus/my-code-dir/week07-lab/Classes/bin/Debug/net6.0/Classes.dll
+/Users/agus/my-code-dir/week07-lab/Classes/bin/Debug/net6.0/ref/Classes.dll
+/Users/agus/my-code-dir/week07-lab/Classes/bin/Debug/net6.0/Classes.pdb
+/Users/agus/my-code-dir/week07-lab/Classes/obj/Debug/net6.0/Classes.csproj.AssemblyReference.cache
+/Users/agus/my-code-dir/week07-lab/Classes/obj/Debug/net6.0/Classes.GeneratedMSBuildEditorConfig.editorconfig
+/Users/agus/my-code-dir/week07-lab/Classes/obj/Debug/net6.0/Classes.AssemblyInfoInputs.cache
+/Users/agus/my-code-dir/week07-lab/Classes/obj/Debug/net6.0/Classes.AssemblyInfo.cs
+/Users/agus/my-code-dir/week07-lab/Classes/obj/Debug/net6.0/Classes.csproj.CoreCompileInputs.cache
+/Users/agus/my-code-dir/week07-lab/Classes/obj/Debug/net6.0/Classes.dll
+/Users/agus/my-code-dir/week07-lab/Classes/obj/Debug/net6.0/ref/Classes.dll
+/Users/agus/my-code-dir/week07-lab/Classes/obj/Debug/net6.0/Classes.pdb
+/Users/agus/my-code-dir/TicTacToe AI/Classes/bin/Debug/net6.0/Classes.deps.json
+/Users/agus/my-code-dir/TicTacToe AI/Classes/bin/Debug/net6.0/Classes.dll
+/Users/agus/my-code-dir/TicTacToe AI/Classes/bin/Debug/net6.0/ref/Classes.dll
+/Users/agus/my-code-dir/TicTacToe AI/Classes/bin/Debug/net6.0/Classes.pdb
+/Users/agus/my-code-dir/TicTacToe AI/Classes/obj/Debug/net6.0/Classes.csproj.AssemblyReference.cache
+/Users/agus/my-code-dir/TicTacToe AI/Classes/obj/Debug/net6.0/Classes.GeneratedMSBuildEditorConfig.editorconfig
+/Users/agus/my-code-dir/TicTacToe AI/Classes/obj/Debug/net6.0/Classes.AssemblyInfoInputs.cache
+/Users/agus/my-code-dir/TicTacToe AI/Classes/obj/Debug/net6.0/Classes.AssemblyInfo.cs
+/Users/agus/my-code-dir/TicTacToe AI/Classes/obj/Debug/net6.0/Classes.csproj.CoreCompileInputs.cache
+/Users/agus/my-code-dir/TicTacToe AI/Classes/obj/Debug/net6.0/Classes.dll
+/Users/agus/my-code-dir/TicTacToe AI/Classes/obj/Debug/net6.0/ref/Classes.dll
+/Users/agus/my-code-dir/TicTacToe AI/Classes/obj/Debug/net6.0/Classes.pdb
+/Users/agus/my-code-dir/Chess AI/Classes/bin/Debug/net6.0/Classes.deps.json
+/Users/agus/my-code-dir/Chess AI/Classes/bin/Debug/net6.0/Classes.dll
+/Users/agus/my-code-dir/Chess AI/Classes/bin/Debug/net6.0/ref/Classes.dll
+/Users/agus/my-code-dir/Chess AI/Classes/bin/Debug/net6.0/Classes.pdb
+/Users/agus/my-code-dir/Chess AI/Classes/obj/Debug/net6.0/Classes.csproj.AssemblyReference.cache
+/Users/agus/my-code-dir/Chess AI/Classes/obj/Debug/net6.0/Classes.GeneratedMSBuildEditorConfig.editorconfig
+/Users/agus/my-code-dir/Chess AI/Classes/obj/Debug/net6.0/Classes.AssemblyInfoInputs.cache
+/Users/agus/my-code-dir/Chess AI/Classes/obj/Debug/net6.0/Classes.AssemblyInfo.cs
+/Users/agus/my-code-dir/Chess AI/Classes/obj/Debug/net6.0/Classes.csproj.CoreCompileInputs.cache
+/Users/agus/my-code-dir/Chess AI/Classes/obj/Debug/net6.0/Classes.dll
+/Users/agus/my-code-dir/Chess AI/Classes/obj/Debug/net6.0/ref/Classes.dll
+/Users/agus/my-code-dir/Chess AI/Classes/obj/Debug/net6.0/Classes.pdb
+/Users/agus/my-code-dir/Projects/Chess/Repository/Chess AI/Classes/bin/Debug/net6.0/Classes.deps.json
+/Users/agus/my-code-dir/Projects/Chess/Repository/Chess AI/Classes/bin/Debug/net6.0/Classes.dll
+/Users/agus/my-code-dir/Projects/Chess/Repository/Chess AI/Classes/bin/Debug/net6.0/ref/Classes.dll
+/Users/agus/my-code-dir/Projects/Chess/Repository/Chess AI/Classes/bin/Debug/net6.0/Classes.pdb
+/Users/agus/my-code-dir/Projects/Chess/Repository/Chess AI/Classes/obj/Debug/net6.0/Classes.csproj.AssemblyReference.cache
+/Users/agus/my-code-dir/Projects/Chess/Repository/Chess AI/Classes/obj/Debug/net6.0/Classes.GeneratedMSBuildEditorConfig.editorconfig
+/Users/agus/my-code-dir/Projects/Chess/Repository/Chess AI/Classes/obj/Debug/net6.0/Classes.AssemblyInfoInputs.cache
+/Users/agus/my-code-dir/Projects/Chess/Repository/Chess AI/Classes/obj/Debug/net6.0/Classes.AssemblyInfo.cs
+/Users/agus/my-code-dir/Projects/Chess/Repository/Chess AI/Classes/obj/Debug/net6.0/Classes.csproj.CoreCompileInputs.cache
+/Users/agus/my-code-dir/Projects/Chess/Repository/Chess AI/Classes/obj/Debug/net6.0/Classes.dll
+/Users/agus/my-code-dir/Projects/Chess/Repository/Chess AI/Classes/obj/Debug/net6.0/ref/Classes.dll
+/Users/agus/my-code-dir/Projects/Chess/Repository/Chess AI/Classes/obj/Debug/net6.0/Classes.pdb

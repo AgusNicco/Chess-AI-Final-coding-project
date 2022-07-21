@@ -3,8 +3,9 @@ using System.Diagnostics;
 public class Program
 {
     static void Main()
-    {
+    {   
         Console.Clear();
+      
         Console.WriteLine("Hello user. This program will let you play TicTacToe vs an AI. You will use circles and the AI will use crosses, the first one to move will be chosen at random.\n");
         Console.WriteLine("You will input your moves using integers. Here is a map of the values that refer to each cell, in order to place your move there, just input the number:\n");
         
@@ -22,5 +23,21 @@ public class Program
 
         Game game = new Game();
         Game.StartGame();
+        
+        
+        // Console.Clear();
+        // Stopwatch stop = new Stopwatch();
+        // stop.Start();
+
+        // AI.Node Node = new AI.Node(Game.CharArrayToList(new char[3][] {
+        // new char [] {' ',' ',' '},
+        // new char [] {' ',' ',' '},
+        // new char [] {' ',' ',' '}
+        // }), true, null, 1);
+
+        // stop.Stop();
+        // Console.WriteLine(stop.Elapsed);
+        // Console.WriteLine(AI.NumberOfNodes);
+        
     }
 }

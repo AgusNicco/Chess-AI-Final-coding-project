@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "TA73KnJw2lJPJhI52Ia8XlYPd+0HhYTrmUnNPedpqoKKfZVmxb/WNYJJtFP4WXJVrJbBddhPK4w+HuWzb1UJ0g==",
+  "dgSpecHash": "ADqzH9jRRXavNdC75f1L/WBoBYuLwrbaE4vhDCDEae0lYCyiajApMzQ3823niPgbadnRojAx8X90Gw0aSbsVIg==",
   "success": true,
-  "projectFilePath": "/Users/agus/my-code-dir/Chess/Repository/TicTacToe AI/Main/Main.csproj",
+  "projectFilePath": "/Users/agus/my-code-dir/Projects/Chess/Repository/TicTacToe AI/Main/Main.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

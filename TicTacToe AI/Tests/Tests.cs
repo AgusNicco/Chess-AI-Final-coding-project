@@ -153,7 +153,7 @@ public class LinkedListNodeTests
         new char [] {' ',' ',' '},
         new char [] {' ',' ',' '},
         new char [] {' ',' ',' '}
-        }), null, true, null, 1);
+        }), true, null, 1);
 
         
         Assert.True(true); // the point of this test is to see if the recursion  works and doesn't get stuckvin an infinte loop 

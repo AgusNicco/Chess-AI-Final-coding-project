@@ -2,15 +2,26 @@ namespace Classes;
 
 public class Game
 {
-    public static List<List<char>> Board = new List<List<char>> {
-        new List<char> {'R','N','B','Q','K','B','N','R'},
-        new List<char> {'P','P','P','P','P','P','P','P'},
-        new List<char> {' ',' ',' ',' ',' ',' ',' ',' '},
-        new List<char> {' ',' ',' ',' ',' ',' ',' ',' '},   // holds the current position in the game
-        new List<char> {' ',' ',' ',' ',' ',' ',' ',' '},
-        new List<char> {' ',' ',' ',' ',' ',' ',' ',' '},
-        new List<char> {'1','1','1','1','1','1','1','1'},
-        new List<char> {'5','3','4','8','9','4','3','5'}
+    // public static List<List<char>> Board = new List<List<char>> {
+    //     new List<char> {'R','N','B','Q','K','B','N','R'},
+    //     new List<char> {'P','P','P','P','P','P','P','P'},
+    //     new List<char> {' ',' ',' ',' ',' ',' ',' ',' '},
+    //     new List<char> {' ',' ',' ',' ',' ',' ',' ',' '},   // holds the current position in the game
+    //     new List<char> {' ',' ',' ',' ',' ',' ',' ',' '},
+    //     new List<char> {' ',' ',' ',' ',' ',' ',' ',' '},
+    //     new List<char> {'1','1','1','1','1','1','1','1'},
+    //     new List<char> {'5','3','4','8','9','4','3','5'}
+    // };
+
+public static List<List<byte>> Board = new List<List<byte>> {
+        new List<byte> {55,33,44,88,99,44,33,55},
+        new List<byte> {11,11,11,11,11,11,11,11},
+        new List<byte> { 0, 0, 0, 0, 0, 0, 0, 0},   // holds the current position in the game
+        new List<byte> { 0, 0, 0, 0, 0, 0, 0, 0},
+        new List<byte> { 0, 0, 0, 0, 0, 0, 0, 0},
+        new List<byte> { 0, 0, 0, 0, 0, 0, 0, 0},
+        new List<byte> { 1, 1, 1, 1, 1, 1, 1, 1},
+        new List<byte> { 5, 3, 4, 8, 9, 4, 3, 5}
     };
 
 
@@ -199,25 +210,25 @@ public class Game
         return false;
     }
     // provides a list with all the legal moves a player can make
-    public static List<Move> GetLegalMoves(bool White, List<List<char>> board = null)
+    public static List<Move> GetLegalMoves(bool White, List<List<byte>> board = null)
     {
         if (board == null) board = Game.Board;
         List<Move> output = new List<Move> { };
         if (White)
         {
-            CheckHorizontalAndVertical(WhiteRooksCoords[0], 'R');
-            CheckHorizontalAndVertical(WhiteRooksCoords[1], 'R');
-            CheckHorizontalAndVertical(WhiteQueenCoords, 'Q');
-            CheckDiagonal(WhiteQueenCoords, 'Q');
-            CheckDiagonal(WhiteBishopsCoords[1], 'B');
-            CheckDiagonal(WhiteBishopsCoords[0], 'B');
+            CheckHorizontalAndVertical(WhiteRooksCoords[0], 55);
+            CheckHorizontalAndVertical(WhiteRooksCoords[1], 55);
+            CheckHorizontalAndVertical(WhiteQueenCoords, 88);
+            CheckDiagonal(WhiteQueenCoords, 88);
+            CheckDiagonal(WhiteBishopsCoords[1], 44);
+            CheckDiagonal(WhiteBishopsCoords[0], 44);
             CheckWhiteKnights();
             CheckWhiteKing();
             CheckWhitePawns();
         }
         return output;
         // slow
-        void CheckDiagonal(Point? location, char skin)
+        void CheckDiagonal(Point? location, byte skin)
         {
             if (board[location.y][location.x] == skin)
             {
@@ -225,8 +236,8 @@ public class Game
                 for (int i = 1; i <= 7; i++)
                 {
                     if (location.y + i > 7 || location.y + i < 0 || location.x + i > 7 || location.x + i < 0) break;
-                    if (board[location.y + i][location.x + i] == ' ') output.Add(new Move(location, new Point(location.y + i, location.x + i)));
-                    else if (board[location.y + i][location.x + i] != ' ')
+                    if (board[location.y + i][location.x + i] == 0) output.Add(new Move(location, new Point(location.y + i, location.x + i)));
+                    else if (board[location.y + i][location.x + i] != 0)
                     {
                         if (IsNotAWhitePiece(board[location.y + i][location.x + i]))
                             output.Add(new Move(location, new Point(location.y + i, location.x + i)));
@@ -236,8 +247,8 @@ public class Game
                 for (int i = 1; i <= 7; i++)
                 {
                     if (location.y - i > 7 || location.y - i < 0 || location.x - i > 7 || location.x - i < 0) break;
-                    if (board[location.y - i][location.x - i] == ' ') output.Add(new Move(location, new Point(location.y - i, location.x - i)));
-                    else if (board[location.y - i][location.x - i] != ' ')
+                    if (board[location.y - i][location.x - i] == 0) output.Add(new Move(location, new Point(location.y - i, location.x - i)));
+                    else if (board[location.y - i][location.x - i] != 0)
                     {
                         if (IsNotAWhitePiece(board[location.y - i][location.x - i]))
                             output.Add(new Move(location, new Point(location.y - i, location.x - i)));
@@ -247,8 +258,8 @@ public class Game
                 for (int i = 1; i <= 7; i++)
                 {
                     if (location.y - i > 7 || location.y - i < 0 || location.x + i > 7 || location.x + i < 0) break;
-                    if (board[location.y - i][location.x + i] == ' ') output.Add(new Move(location, new Point(location.y - i, location.x + i)));
-                    else if (board[location.y - i][location.x + i] != ' ')
+                    if (board[location.y - i][location.x + i] == 0) output.Add(new Move(location, new Point(location.y - i, location.x + i)));
+                    else if (board[location.y - i][location.x + i] != 0)
                     {
                         if (IsNotAWhitePiece(board[location.y - i][location.x + i]))
                             output.Add(new Move(location, new Point(location.y - i, location.x + i)));
@@ -258,8 +269,8 @@ public class Game
                 for (int i = 1; i <= 7; i++)
                 {
                     if (location.y + i > 7 || location.y + i < 0 || location.x - i > 7 || location.x - i < 0) break;
-                    if (board[location.y + i][location.x - i] == ' ') output.Add(new Move(location, new Point(location.y + i, location.x - i)));
-                    else if (board[location.y + i][location.x - i] != ' ')
+                    if (board[location.y + i][location.x - i] == 0) output.Add(new Move(location, new Point(location.y + i, location.x - i)));
+                    else if (board[location.y + i][location.x - i] != 0)
                     {
                         if (IsNotAWhitePiece(board[location.y + i][location.x - i]))
                             output.Add(new Move(location, new Point(location.y + i, location.x - i)));
@@ -269,76 +280,60 @@ public class Game
             }
         }
         // fast
-        void CheckHorizontalAndVertical(Point? location, char skin)
+        void CheckHorizontalAndVertical(Point? location, byte skin)
         {
 
             if (board[location.y][location.x] == skin)
             {
                 for (int i = location.y - 1; i >= 0; i--)
                 {
-                    if (board[i][location.x] == ' ') output.Add(new Move(location, new Point(i, location.x)));
-                    else if (board[i][location.x] != ' ')
+                    if (board[i][location.x] == 0) output.Add(new Move(location, new Point(i, location.x)));
+                    else 
                     {
-                        if (board[i][location.x] == 'K' || board[i][location.x] == 'Q' || board[i][location.x] == 'R' || board[i][location.x] == 'N' || board[i][location.x] == 'B' || board[i][location.x] == 'P')
-                            break;
-                        else
-                        {
+                        if (IsNotAWhitePiece(board[i][location.x]))
                             output.Add(new Move(location, new Point(i, location.x)));
-                            break;
-                        }
+                        break;
                     }
                 }
-                for (int i = location.y + 1; i <= 7; i++)
+                for (int i = location.y + 1; i <= 7; i++) 
                 {
-                    if (board[i][location.x] == ' ') output.Add(new Move(location, new Point(i, location.x)));
-                    else if (board[i][location.x] != ' ')
+                    if (board[i][location.x] == 0) output.Add(new Move(location, new Point(i, location.x)));
+                    else 
                     {
-                        if (board[i][location.x] == 'K' || board[i][location.x] == 'Q' || board[i][location.x] == 'R' || board[i][location.x] == 'N' || board[i][location.x] == 'B' || board[i][location.x] == 'P')
-                            break;
-                        else
-                        {
+                        if (IsNotAWhitePiece(board[i][location.x]))
                             output.Add(new Move(location, new Point(i, location.x)));
-                            break;
-                        }
+                        break;
                     }
                 }
                 for (int i = location.x + 1; i <= 7; i++)
                 {
-                    if (board[location.y][i] == ' ') output.Add(new Move(location, new Point(i, i)));
-                    else if (board[location.y][i] != ' ')
+                    if (board[location.y][i] == 0) output.Add(new Move(location, new Point(i, i)));
+                    else 
                     {
-                        if (board[location.y][i] == 'K' || board[location.y][i] == 'Q' || board[location.y][i] == 'R' || board[location.y][i] == 'N' || board[location.y][i] == 'B' || board[location.y][i] == 'P')
-                            break;
-                        else
-                        {
-                            output.Add(new Move(location, new Point(i, i)));
-                            break;
-                        }
+                        if (IsNotAWhitePiece(board[location.y][i]))
+                            output.Add(new Move(location, new Point(location.y, i)));
+                        break;
                     }
                 }
                 for (int i = location.x - 1; i >= 0; i--)
                 {
-                    if (board[location.y][i] == ' ') output.Add(new Move(location, new Point(i, location.x)));
-                    else if (board[location.y][i] != ' ')
+                    if (board[location.y][i] == 0) output.Add(new Move(location, new Point(i, location.x)));
+                    else 
                     {
-                        if (board[location.y][i] == 'K' || board[location.y][i] == 'Q' || board[location.y][i] == 'R' || board[location.y][i] == 'N' || board[location.y][i] == 'B' || board[location.y][i] == 'P')
-                            break;
-                        else
-                        {
-                            output.Add(new Move(location, new Point(i, location.x)));
-                            break;
-                        }
+                        if (IsNotAWhitePiece(board[location.y][i]))
+                            output.Add(new Move(location, new Point(location.y, i)));
+                        break;
                     }
                 }
-
             }
         }
-
-        void CheckWhiteKnights()
+        
+        // 951,875 ticks
+        void CheckWhiteKnights() // works fine
         {
             for (int i = 0; i < WhiteKnightsCoords.Count(); i++)
             {
-                if (board[WhiteKnightsCoords[i].y][WhiteKnightsCoords[i].x] == 'N')
+                if (board[WhiteKnightsCoords[i].y][WhiteKnightsCoords[i].x] == 33)
                 {
                     bool Ym1 = WhiteKnightsCoords[i].y - 1 >= 0;
                     bool Ym2 = WhiteKnightsCoords[i].y - 2 >= 0;
@@ -350,45 +345,36 @@ public class Game
                     bool Xp2 = WhiteKnightsCoords[i].x + 2 < 8;
 
                     if (Ym1 && Xm2)
-                        //if (board[WhiteKnightsCoords[i].y - 1][WhiteKnightsCoords[i].x - 2] != 'K' && board[WhiteKnightsCoords[i].y - 1][WhiteKnightsCoords[i].x - 2] != 'Q' && board[WhiteKnightsCoords[i].y - 1][WhiteKnightsCoords[i].x - 2] != 'B' && board[WhiteKnightsCoords[i].y - 1][WhiteKnightsCoords[i].x - 2] != 'R' && board[WhiteKnightsCoords[i].y - 1][WhiteKnightsCoords[i].x - 2] != 'N' && board[WhiteKnightsCoords[i].y - 1][WhiteKnightsCoords[i].x - 2] != 'P') 
                         if (IsNotAWhitePiece(board[WhiteKnightsCoords[i].y - 1][WhiteKnightsCoords[i].x - 2]))
                             output.Add(new Move(WhiteKnightsCoords[i], new Point(WhiteKnightsCoords[i].y - 1, WhiteKnightsCoords[i].x - 2)));
                     if (Ym2 && Xm1)
-                        // if (board[WhiteKnightsCoords[i].y - 2][WhiteKnightsCoords[i].x - 1] != 'K' && board[WhiteKnightsCoords[i].y - 2][WhiteKnightsCoords[i].x - 1] != 'Q' && board[WhiteKnightsCoords[i].y - 2][WhiteKnightsCoords[i].x - 1] != 'B' && board[WhiteKnightsCoords[i].y - 2][WhiteKnightsCoords[i].x - 1] != 'R' && board[WhiteKnightsCoords[i].y - 2][WhiteKnightsCoords[i].x - 1] != 'N' && board[WhiteKnightsCoords[i].y - 2][WhiteKnightsCoords[i].x - 1] != 'P') 
                         if (IsNotAWhitePiece(board[WhiteKnightsCoords[i].y - 2][WhiteKnightsCoords[i].x - 1]))
                             output.Add(new Move(WhiteKnightsCoords[i], new Point(WhiteKnightsCoords[i].y - 2, WhiteKnightsCoords[i].x - 1)));
                     if (Ym1 && Xp2)
-                        // if (board[WhiteKnightsCoords[i].y - 1][WhiteKnightsCoords[i].x + 2] != 'K' && board[WhiteKnightsCoords[i].y - 1][WhiteKnightsCoords[i].x + 2] != 'Q' && board[WhiteKnightsCoords[i].y - 1][WhiteKnightsCoords[i].x + 2] != 'B' && board[WhiteKnightsCoords[i].y - 1][WhiteKnightsCoords[i].x + 2] != 'R' && board[WhiteKnightsCoords[i].y - 1][WhiteKnightsCoords[i].x + 2] != 'N' && board[WhiteKnightsCoords[i].y - 1][WhiteKnightsCoords[i].x + 2] != 'P') 
                         if (IsNotAWhitePiece(board[WhiteKnightsCoords[i].y - 1][WhiteKnightsCoords[i].x + 2]))
                             output.Add(new Move(WhiteKnightsCoords[i], new Point(WhiteKnightsCoords[i].y - 1, WhiteKnightsCoords[i].x + 2)));
                     if (Ym2 && Xp1)
-                        // if (board[WhiteKnightsCoords[i].y - 2][WhiteKnightsCoords[i].x + 1] != 'K' && board[WhiteKnightsCoords[i].y - 2][WhiteKnightsCoords[i].x + 1] != 'Q' && board[WhiteKnightsCoords[i].y - 2][WhiteKnightsCoords[i].x + 1] != 'B' && board[WhiteKnightsCoords[i].y - 2][WhiteKnightsCoords[i].x + 1] != 'R' && board[WhiteKnightsCoords[i].y - 2][WhiteKnightsCoords[i].x + 1] != 'N' && board[WhiteKnightsCoords[i].y - 2][WhiteKnightsCoords[i].x + 1] != 'P') 
                         if (IsNotAWhitePiece(board[WhiteKnightsCoords[i].y - 2][WhiteKnightsCoords[i].x + 1]))  
                             output.Add(new Move(WhiteKnightsCoords[i], new Point(WhiteKnightsCoords[i].y - 2, WhiteKnightsCoords[i].x + 1)));
                     if (Yp1 && Xm2)
-                        // if (board[WhiteKnightsCoords[i].y + 1][WhiteKnightsCoords[i].x - 2] != 'K' && board[WhiteKnightsCoords[i].y + 1][WhiteKnightsCoords[i].x - 2] != 'Q' && board[WhiteKnightsCoords[i].y + 1][WhiteKnightsCoords[i].x - 2] != 'B' && board[WhiteKnightsCoords[i].y + 1][WhiteKnightsCoords[i].x - 2] != 'R' && board[WhiteKnightsCoords[i].y + 1][WhiteKnightsCoords[i].x - 2] != 'N' && board[WhiteKnightsCoords[i].y + 1][WhiteKnightsCoords[i].x - 2] != 'P')
                         if (IsNotAWhitePiece(board[WhiteKnightsCoords[i].y + 1][WhiteKnightsCoords[i].x - 2]))
                             output.Add(new Move(WhiteKnightsCoords[i], new Point(WhiteKnightsCoords[i].y + 1, WhiteKnightsCoords[i].x - 2)));
                     if (Yp2 && Xm1)
-                        // if (board[WhiteKnightsCoords[i].y + 2][WhiteKnightsCoords[i].x - 1] != 'K' && board[WhiteKnightsCoords[i].y + 2][WhiteKnightsCoords[i].x - 1] != 'Q' && board[WhiteKnightsCoords[i].y + 2][WhiteKnightsCoords[i].x - 1] != 'B' && board[WhiteKnightsCoords[i].y + 2][WhiteKnightsCoords[i].x - 1] != 'R' && board[WhiteKnightsCoords[i].y + 2][WhiteKnightsCoords[i].x - 1] != 'N' && board[WhiteKnightsCoords[i].y + 2][WhiteKnightsCoords[i].x - 1] != 'P') 
                         if (IsNotAWhitePiece(board[WhiteKnightsCoords[i].y + 2][WhiteKnightsCoords[i].x - 1]))
                             output.Add(new Move(WhiteKnightsCoords[i], new Point(WhiteKnightsCoords[i].y + 2, WhiteKnightsCoords[i].x - 1)));
                     if (Yp2 && Xm1)
-                        // if (board[WhiteKnightsCoords[i].y + 2][WhiteKnightsCoords[i].x + 1] != 'K' && board[WhiteKnightsCoords[i].y + 2][WhiteKnightsCoords[i].x + 1] != 'Q' && board[WhiteKnightsCoords[i].y + 2][WhiteKnightsCoords[i].x + 1] != 'B' && board[WhiteKnightsCoords[i].y + 2][WhiteKnightsCoords[i].x + 1] != 'R' && board[WhiteKnightsCoords[i].y + 2][WhiteKnightsCoords[i].x + 1] != 'N' && board[WhiteKnightsCoords[i].y + 2][WhiteKnightsCoords[i].x + 1] != 'P') 
                         if (IsNotAWhitePiece(board[WhiteKnightsCoords[i].y + 2][WhiteKnightsCoords[i].x + 1]))
                             output.Add(new Move(WhiteKnightsCoords[i], new Point(WhiteKnightsCoords[i].y + 2, WhiteKnightsCoords[i].x + 1)));
                     if (Yp1 && Xp2)
-                        // if (board[WhiteKnightsCoords[i].y + 1][WhiteKnightsCoords[i].x + 2] != 'K' && board[WhiteKnightsCoords[i].y + 1][WhiteKnightsCoords[i].x + 2] != 'Q' && board[WhiteKnightsCoords[i].y + 1][WhiteKnightsCoords[i].x + 2] != 'B' && board[WhiteKnightsCoords[i].y + 1][WhiteKnightsCoords[i].x + 2] != 'R' && board[WhiteKnightsCoords[i].y + 1][WhiteKnightsCoords[i].x + 2] != 'N' && board[WhiteKnightsCoords[i].y + 1][WhiteKnightsCoords[i].x + 2] != 'P') 
                         if (IsNotAWhitePiece(board[WhiteKnightsCoords[i].y + 1][WhiteKnightsCoords[i].x + 2]))
                             output.Add(new Move(WhiteKnightsCoords[i], new Point(WhiteKnightsCoords[i].y + 1, WhiteKnightsCoords[i].x + 2)));
                 }
             }
-
         }
 
         void CheckWhiteKing()
         {
-            if (board[WhiteKingCoords.y][WhiteKingCoords.x] == 'K')
+            if (board[WhiteKingCoords.y][WhiteKingCoords.x] == 99)
             {
                 // 274.041 ticks
                 bool Ym1 = WhiteKingCoords.y - 1 >= 0;
@@ -400,41 +386,33 @@ public class Game
                 if(Ym1 && Xm1)
                     if (IsNotAWhitePiece(board[WhiteKingCoords.y - 1][WhiteKingCoords.x - 1])) 
                         output.Add(new Move(WhiteKingCoords, new Point(WhiteKingCoords.y - 1, WhiteKingCoords.x - 1)));
-                //     if (board[WhiteKingCoords.y - 1][WhiteKingCoords.x - 1] != 'K' && board[WhiteKingCoords.y - 1][WhiteKingCoords.x - 1] != 'Q' && board[WhiteKingCoords.y - 1][WhiteKingCoords.x - 1] != 'B' && board[WhiteKingCoords.y - 1][WhiteKingCoords.x - 1] != 'R' && board[WhiteKingCoords.y - 1][WhiteKingCoords.x - 1] != 'N' && board[WhiteKingCoords.y - 1][WhiteKingCoords.x - 1] != 'P') output.Add(new Move(WhiteKingCoords, new Point(WhiteKingCoords.y - 1, WhiteKingCoords.x - 1)));
                 
                 if(Ym1)
                     if (IsNotAWhitePiece(board[WhiteKingCoords.y - 1][WhiteKingCoords.x])) 
                         output.Add(new Move(WhiteKingCoords, new Point(WhiteKingCoords.y - 1, WhiteKingCoords.x)));
-                // if (board[WhiteKingCoords.y - 1][WhiteKingCoords.x] != 'K' && board[WhiteKingCoords.y - 1][WhiteKingCoords.x] != 'Q' && board[WhiteKingCoords.y - 1][WhiteKingCoords.x] != 'B' && board[WhiteKingCoords.y - 1][WhiteKingCoords.x] != 'R' && board[WhiteKingCoords.y - 1][WhiteKingCoords.x] != 'N' && board[WhiteKingCoords.y - 1][WhiteKingCoords.x] != 'P') output.Add(new Move(WhiteKingCoords, new Point(WhiteKingCoords.y - 1, WhiteKingCoords.x)));
                 
                 if(Ym1 && Xp1)
                     if (IsNotAWhitePiece(board[WhiteKingCoords.y - 1][WhiteKingCoords.x + 1]))
                         output.Add(new Move(WhiteKingCoords, new Point(WhiteKingCoords.y - 1, WhiteKingCoords.x + 1)));
-                // if (board[WhiteKingCoords.y - 1][WhiteKingCoords.x + 1] != 'K' && board[WhiteKingCoords.y - 1][WhiteKingCoords.x + 1] != 'Q' && board[WhiteKingCoords.y - 1][WhiteKingCoords.x + 1] != 'B' && board[WhiteKingCoords.y - 1][WhiteKingCoords.x + 1] != 'R' && board[WhiteKingCoords.y - 1][WhiteKingCoords.x + 1] != 'N' && board[WhiteKingCoords.y - 1][WhiteKingCoords.x + 1] != 'P') output.Add(new Move(WhiteKingCoords, new Point(WhiteKingCoords.y - 1, WhiteKingCoords.x + 1)));
                 
                 if (Xp1)
                     if (IsNotAWhitePiece(board[WhiteKingCoords.y][WhiteKingCoords.x + 1]))
                         output.Add(new Move(WhiteKingCoords, new Point(WhiteKingCoords.y, WhiteKingCoords.x + 1)));
-                // if (board[WhiteKingCoords.y][WhiteKingCoords.x + 1] != 'K' && board[WhiteKingCoords.y][WhiteKingCoords.x + 1] != 'Q' && board[WhiteKingCoords.y][WhiteKingCoords.x + 1] != 'B' && board[WhiteKingCoords.y][WhiteKingCoords.x + 1] != 'R' && board[WhiteKingCoords.y][WhiteKingCoords.x + 1] != 'N' && board[WhiteKingCoords.y][WhiteKingCoords.x + 1] != 'P') output.Add(new Move(WhiteKingCoords, new Point(WhiteKingCoords.y, WhiteKingCoords.x + 1)));
                 
                 if(Yp1 && Xp1)
                     if (IsNotAWhitePiece(board[WhiteKingCoords.y + 1][WhiteKingCoords.x + 1]))
                         output.Add(new Move(WhiteKingCoords, new Point(WhiteKingCoords.y + 1, WhiteKingCoords.x + 1)));
-                // if (board[WhiteKingCoords.y + 1][WhiteKingCoords.x + 1] != 'K' && board[WhiteKingCoords.y + 1][WhiteKingCoords.x + 1] != 'Q' && board[WhiteKingCoords.y + 1][WhiteKingCoords.x + 1] != 'B' && board[WhiteKingCoords.y + 1][WhiteKingCoords.x + 1] != 'R' && board[WhiteKingCoords.y + 1][WhiteKingCoords.x + 1] != 'N' && board[WhiteKingCoords.y + 1][WhiteKingCoords.x + 1] != 'P') output.Add(new Move(WhiteKingCoords, new Point(WhiteKingCoords.y + 1, WhiteKingCoords.x + 1)));
                 
                 if(Yp1)
                     if (IsNotAWhitePiece(board[WhiteKingCoords.y + 1][WhiteKingCoords.x]))
                         output.Add(new Move(WhiteKingCoords, new Point(WhiteKingCoords.y + 1, WhiteKingCoords.x)));
-                //if (board[WhiteKingCoords.y + 1][WhiteKingCoords.x] != 'K' && board[WhiteKingCoords.y + 1][WhiteKingCoords.x] != 'Q' && board[WhiteKingCoords.y + 1][WhiteKingCoords.x] != 'B' && board[WhiteKingCoords.y + 1][WhiteKingCoords.x] != 'R' && board[WhiteKingCoords.y + 1][WhiteKingCoords.x] != 'N' && board[WhiteKingCoords.y + 1][WhiteKingCoords.x] != 'P') output.Add(new Move(WhiteKingCoords, new Point(WhiteKingCoords.y + 1, WhiteKingCoords.x)));
                 
                 if(Yp1 && Xm1)
                     if (IsNotAWhitePiece(board[WhiteKingCoords.y + 1][WhiteKingCoords.x - 1]))
                         output.Add(new Move(WhiteKingCoords, new Point(WhiteKingCoords.y + 1, WhiteKingCoords.x - 1)));
-                // if (board[WhiteKingCoords.y + 1][WhiteKingCoords.x - 1] != 'K' && board[WhiteKingCoords.y + 1][WhiteKingCoords.x - 1] != 'Q' && board[WhiteKingCoords.y + 1][WhiteKingCoords.x - 1] != 'B' && board[WhiteKingCoords.y + 1][WhiteKingCoords.x - 1] != 'R' && board[WhiteKingCoords.y + 1][WhiteKingCoords.x - 1] != 'N' && board[WhiteKingCoords.y + 1][WhiteKingCoords.x - 1] != 'P') output.Add(new Move(WhiteKingCoords, new Point(WhiteKingCoords.y + 1, WhiteKingCoords.x - 1)));
                 if(Xm1)
                     if (IsNotAWhitePiece(board[WhiteKingCoords.y][WhiteKingCoords.x - 1]))
                         output.Add(new Move(WhiteKingCoords, new Point(WhiteKingCoords.y, WhiteKingCoords.x - 1)));
-                // if (board[WhiteKingCoords.y][WhiteKingCoords.x - 1] != 'K' && board[WhiteKingCoords.y][WhiteKingCoords.x - 1] != 'Q' && board[WhiteKingCoords.y][WhiteKingCoords.x - 1] != 'B' && board[WhiteKingCoords.y][WhiteKingCoords.x - 1] != 'R' && board[WhiteKingCoords.y][WhiteKingCoords.x - 1] != 'N' && board[WhiteKingCoords.y][WhiteKingCoords.x - 1] != 'P') output.Add(new Move(WhiteKingCoords, new Point(WhiteKingCoords.y, WhiteKingCoords.x - 1)));
             }
         }
 
@@ -442,36 +420,34 @@ public class Game
         {
             foreach (Point p in WhitePawnsCoords)
             {
-                if (board[p.y][p.x] == 'P')
+                if (board[p.y][p.x] == 11)
                 {
                     if (p.y == 1)
                     {
                         for (int i = 1; i <= 2; i++)
-                            if (board[p.y + i][p.x] == ' ') output.Add(new Move(p, new Point(p.y + i, p.x)));
+                            if (board[p.y + i][p.x] == 0) output.Add(new Move(p, new Point(p.y + i, p.x)));
                             else break;
                     }
-                    else if (board[p.y + 1][p.x] == ' ') output.Add(new Move(p, new Point(p.y + 1, p.x)));
+                    else if (board[p.y + 1][p.x] == 0) output.Add(new Move(p, new Point(p.y + 1, p.x)));
                     if (p.y + 1 < 8 && p.x + 1 < 8)
-                        if (board[p.y + 1][p.x + 1] != ' ')
+                        if (board[p.y + 1][p.x + 1] != 0)
                         {
-                            // if (!(board[p.y + 1][p.x + 1] == 'K' || board[p.y + 1][p.x + 1] == 'Q' || board[p.y + 1][p.x + 1] == 'R' || board[p.y + 1][p.x + 1] == 'N' || board[p.y + 1][p.x + 1] == 'B' || board[p.y + 1][p.x + 1] == 'P'))
                             if (IsNotAWhitePiece(board[p.y + 1][p.x + 1]))
                                 output.Add(new Move(p, new Point(p.y + 1, p.x + 1)));
                         }
                     if (p.y + 1 < 8 && p.x - 1 >= 0)
-                        if (board[p.y + 1][p.x - 1] != ' ')
+                        if (board[p.y + 1][p.x - 1] != 0)
                         {
-                            // if (!(board[p.y + 1][p.x - 1] == 'K' || board[p.y + 1][p.x - 1] == 'Q' || board[p.y + 1][p.x - 1] == 'R' || board[p.y + 1][p.x - 1] == 'N' || board[p.y + 1][p.x - 1] == 'B' || board[p.y + 1][p.x - 1] == 'P'))
                             if (IsNotAWhitePiece(board[p.y + 1][p.x - 1]))    
                                 output.Add(new Move(p, new Point(p.y + 1, p.x - 1)));
                         }
                 }
-                if (board[p.y][p.x] == 'Q')
+                if (board[p.y][p.x] == 88)
                 {
-                    CheckDiagonal(p, 'Q');
-                    CheckHorizontalAndVertical(p, 'Q');
+                    CheckDiagonal(p, 88);
+                    CheckHorizontalAndVertical(p, 88);
                 }
-                else if (board[p.y][p.x] == 'K')
+                else if (board[p.y][p.x] == 33)
                 {
 
                 }
@@ -484,9 +460,9 @@ public class Game
             return (x >= 0 && x <= 7);
         }
 
-        bool IsNotAWhitePiece (char c)
+        bool IsNotAWhitePiece (byte b)
         {
-            return c < 65;
+            return b < 11;
         }
     }
 
@@ -495,23 +471,23 @@ public class Game
         for (int y = 0; y < Board.Count(); y++)
             for (int x = 0; x < Board[y].Count(); x++)
             {
-                if (Board[y][x] == 'K') WhiteKingCoords = new Point(y, x);
-                else if (Board[y][x] == '9') BlackKingCoords = new Point(y, x);
-                else if (Board[y][x] == 'Q') WhiteQueenCoords = new Point(y, x);
-                else if (Board[y][x] == '8') BlackQueenCoords = new Point(y, x);
-                else if (Board[y][x] == 'R') WhiteRooksCoords.Add(new Point(y, x));
-                else if (Board[y][x] == '5') BlackRooksCoords.Add(new Point(y, x));
-                else if (Board[y][x] == 'N') WhiteKnightsCoords.Add(new Point(y, x));
-                else if (Board[y][x] == '3') BlackKnightsCoords.Add(new Point(y, x));
-                else if (Board[y][x] == 'B') WhiteBishopsCoords.Add(new Point(y, x));
-                else if (Board[y][x] == '4') BlackBishopsCoords.Add(new Point(y, x));
-                else if (Board[y][x] == 'P') WhitePawnsCoords.Add(new Point(y, x));
-                else if (Board[y][x] == '1') BlackPawnsCoords.Add(new Point(y, x));
+                if (Board[y][x] == 99) WhiteKingCoords = new Point(y, x);
+                else if (Board[y][x] == 9) BlackKingCoords = new Point(y, x);
+                else if (Board[y][x] == 88) WhiteQueenCoords = new Point(y, x);
+                else if (Board[y][x] == 8) BlackQueenCoords = new Point(y, x);
+                else if (Board[y][x] == 55) WhiteRooksCoords.Add(new Point(y, x));
+                else if (Board[y][x] == 5) BlackRooksCoords.Add(new Point(y, x));
+                else if (Board[y][x] == 33) WhiteKnightsCoords.Add(new Point(y, x));
+                else if (Board[y][x] == 3) BlackKnightsCoords.Add(new Point(y, x));
+                else if (Board[y][x] == 44) WhiteBishopsCoords.Add(new Point(y, x));
+                else if (Board[y][x] == 4) BlackBishopsCoords.Add(new Point(y, x));
+                else if (Board[y][x] == 11) WhitePawnsCoords.Add(new Point(y, x));
+                else if (Board[y][x] == 1) BlackPawnsCoords.Add(new Point(y, x));
             }
     }
 }
 
-public class Point
+public record Point
 {
     public int y;
     public int x;
@@ -523,14 +499,14 @@ public class Point
     }
 }
 
-public struct Move  // used to store and execute a move
+public class Move  // used to store and execute a move
 {
 
     Point From {get; }
     Point To  {get; }
-    char Piece;
+    byte Piece;
 
-    public Move(Point from, Point to, List<List<char>> board = null)
+    public Move(Point from, Point to, List<List<byte>> board = null)
     {
         if (board == null) board = Game.Board;
         From = from;

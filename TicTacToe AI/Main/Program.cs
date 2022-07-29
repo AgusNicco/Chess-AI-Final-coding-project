@@ -21,7 +21,7 @@ public class Program
         
         ConsoleKey key = Console.ReadKey(true).Key;
 
-        Game game = new Game();
+        // Game game = new Game();
         Game.StartGame();
         
         

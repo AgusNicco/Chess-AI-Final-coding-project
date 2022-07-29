@@ -143,6 +143,7 @@ public class LinkedListNodeTests
         Assert.True(w[0][0] == 0);
     }
 
+
     [Test]
     public void TestNode() 
     {
@@ -156,7 +157,7 @@ public class LinkedListNodeTests
         }), true, null, 1);
 
         
-        Assert.True(true); // the point of this test is to see if the recursion  works and doesn't get stuckvin an infinte loop 
+        Assert.True(true); // the point of this test is to see if the recursion  works and doesn't get stuck in an infinte loop 
         // if it doesn't blow up it passed 
     }
 

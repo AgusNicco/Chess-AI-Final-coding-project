@@ -1,16 +1,13 @@
 namespace Classes;
 
 
-public class AI
+public interface AI
 {
     private static char[][] Board = Game.Board;
     private static char[][] TheoricalBoard = Board;
-    public static int SearchDepth = 9;
+    public static int SearchDepth = 3;
     private static char Skin = 'X';
     private static char EnemySkin = 'O';
-    public string[] PossibleMoves = new string[9] { $"1{Skin}", $"2{Skin}", $"3{Skin}", $"4{Skin}", $"5{Skin}", $"6{Skin}", $"7{Skin}", $"8{Skin}", $"9{Skin}", };
-    private record PossibleMove(int coordinateY, int coordinateX, int evaluation = 0);
-
 
     // works fine
     public static double EvaluatePosition(List<char[]> Board = null, bool AiMove = true)
@@ -227,7 +224,20 @@ public class AI
     }
 }
 
+public class Move
+{
+    public readonly bool PlayedByAi;
+    public readonly int coordinateY;
+    public readonly int coordinateX;
 
-public record Move(bool PlayedByAi, int coordinateY, int coordinateX, string code = " ");
 
+
+    public Move(bool _PlayedByAi, int _coordinateY, int _coordinateX)
+    {
+        PlayedByAi = _PlayedByAi;
+        coordinateY = _coordinateY;
+        coordinateX = _coordinateX;
+    }
+
+}
 

@@ -1,7 +1,7 @@
 namespace Classes;
 
 
-public class Game
+public interface Game
 {
     public static char[][] Board = new char[3][] {
         new char [] {' ',' ',' '},
@@ -19,7 +19,7 @@ public class Game
             return true;
         else return false;
     }
-
+ 
     public static bool IsBoardFull()
     {
         for (int y = 0; y < Board.Length; y++)
@@ -33,7 +33,7 @@ public class Game
     public static Move TranslateMove(string s)
     {
         int[] position = TranslateCoord(int.Parse(s));
-        return new Move(false, position[0], position[1], s);
+        return new Move(false, position[0], position[1]);
     }
 
     public static int[] TranslateCoord(int i)
@@ -176,10 +176,5 @@ public class Game
             Console.WriteLine("\n It is a draw\n");
             PrintMap();
         }
-    }
-
-    public Game()
-    {
-
     }
 }

@@ -1,19 +1,10 @@
 namespace Classes;
 
-public class Game
+public interface Game
 {
-    // public static List<List<char>> Board = new List<List<char>> {
-    //     new List<char> {'R','N','B','Q','K','B','N','R'},
-    //     new List<char> {'P','P','P','P','P','P','P','P'},
-    //     new List<char> {' ',' ',' ',' ',' ',' ',' ',' '},
-    //     new List<char> {' ',' ',' ',' ',' ',' ',' ',' '},   // holds the current position in the game
-    //     new List<char> {' ',' ',' ',' ',' ',' ',' ',' '},
-    //     new List<char> {' ',' ',' ',' ',' ',' ',' ',' '},
-    //     new List<char> {'1','1','1','1','1','1','1','1'},
-    //     new List<char> {'5','3','4','8','9','4','3','5'}
-    // };
 
-public static List<List<byte>> Board = new List<List<byte>> {
+    public static ChessBoard ChessBoard = new ChessBoard();
+    public static List<List<byte>> Board = new List<List<byte>> {
         new List<byte> {55,33,44,88,99,44,33,55},
         new List<byte> {11,11,11,11,11,11,11,11},
         new List<byte> { 0, 0, 0, 0, 0, 0, 0, 0},   // holds the current position in the game
@@ -455,19 +446,67 @@ public static List<List<byte>> Board = new List<List<byte>> {
             }
         }
 
-        bool IsInRange(int x)
-        {
-            return (x >= 0 && x <= 7);
-        }
-
         bool IsNotAWhitePiece (byte b)
         {
             return b < 11;
         }
     }
 
-    public Game()
+}
+
+public class ChessBoard
+{// holds the current position in the game
+    public List<List<byte>> Board;
+    Point WhiteKingCoords;
+    Point WhiteQueenCoords;
+
+    List<Point> WhiteRooksCoords = new List<Point> { };
+    List<Point> WhiteKnightsCoords = new List<Point> { };
+    List<Point> WhiteBishopsCoords = new List<Point> { };
+    List<Point> WhitePawnsCoords = new List<Point> { };
+
+
+    Point BlackKingCoords;
+    Point BlackQueenCoords;
+
+    List<Point> BlackRooksCoords = new List<Point> { };
+    List<Point> BlackKnightsCoords = new List<Point> { };
+    List<Point> BlackBishopsCoords = new List<Point> { };
+    List<Point> BlackPawnsCoords = new List<Point> { };
+
+    public List<List<byte>> CleanCopyOfBoard(List<List<byte>>? board)
     {
+        List<List<byte>> output = new List<List<byte>> {};
+
+        foreach (List<byte> lb in board)
+        {
+            List<byte> newLB = new List<byte>();
+            foreach (byte b in lb)
+            {
+                newLB.Add(b);
+            }
+            output.Add(newLB);
+        }
+        return output;
+    }
+
+    public ChessBoard( List<List<byte>>? board = null )
+    {
+        if (board == null)
+        {
+            Board = new List<List<byte>> {
+            new List<byte> {55,33,44,88,99,44,33,55},
+            new List<byte> {11,11,11,11,11,11,11,11},
+            new List<byte> { 0, 0, 0, 0, 0, 0, 0, 0},  
+            new List<byte> { 0, 0, 0, 0, 0, 0, 0, 0},
+            new List<byte> { 0, 0, 0, 0, 0, 0, 0, 0},
+            new List<byte> { 0, 0, 0, 0, 0, 0, 0, 0},
+            new List<byte> { 1, 1, 1, 1, 1, 1, 1, 1},
+            new List<byte> { 5, 3, 4, 8, 9, 4, 3, 5}
+            };
+        }
+        else Board = board;
+
         for (int y = 0; y < Board.Count(); y++)
             for (int x = 0; x < Board[y].Count(); x++)
             {
@@ -484,7 +523,9 @@ public static List<List<byte>> Board = new List<List<byte>> {
                 else if (Board[y][x] == 11) WhitePawnsCoords.Add(new Point(y, x));
                 else if (Board[y][x] == 1) BlackPawnsCoords.Add(new Point(y, x));
             }
+
     }
+
 }
 
 public record Point

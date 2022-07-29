@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using Classes;
+using System.Collections.Generic;
 
 namespace Test;
 
@@ -8,8 +9,6 @@ public class LinkedListNodeTests
     [Test]
     public void TestCheckMate()
     {
-        Game test = new Game();
-
         Game.Board = new char[3][] {
         new char [] {'X','X','X'},
         new char [] {' ',' ',' '},
@@ -44,29 +43,27 @@ public class LinkedListNodeTests
     [Test]
     public void TestEvaluatePosition()
     {
-        Game test = new Game();
-        AI AI = new AI();
-
+        AI.SwitchDifficulty(AI.Difficulty.Impossible);
         Game.Board = new char[3][] {
         new char [] {' ',' ','X'},
         new char [] {' ','X',' '},
         new char [] {'X',' ',' '}  };
 
-        Assert.AreEqual(AI.EvaluatePosition(Game.CharArrayToList(Game.Board)), 3);
+        Assert.AreEqual(AI.EvaluatePosition(Game.CharArrayToList(Game.Board), false), 3);
 
         Game.Board = new char[3][] {
         new char [] {'X',' ','X'},
         new char [] {' ','O',' '},
         new char [] {'X',' ','O'}  };
 
-        Assert.AreEqual(AI.EvaluatePosition(Game.CharArrayToList(Game.Board)), 0);
+        Assert.AreEqual(AI.EvaluatePosition(Game.CharArrayToList(Game.Board), false), 0);
 
         Game.Board = new char[3][] {
         new char [] {'X',' ',' '},
         new char [] {' ','X',' '},
         new char [] {' ',' ','X'}  };
 
-        Assert.AreEqual(AI.EvaluatePosition(Game.CharArrayToList(Game.Board)), 3);
+        Assert.AreEqual(AI.EvaluatePosition(Game.CharArrayToList(Game.Board), false), 3);
 
 
         Game.Board = new char[3][] {
@@ -75,14 +72,14 @@ public class LinkedListNodeTests
         new char [] {'X',' ','O'}  };
 
 
-        Assert.AreEqual(AI.EvaluatePosition(Game.CharArrayToList(Game.Board)), 3);
+        Assert.AreEqual(AI.EvaluatePosition(Game.CharArrayToList(Game.Board), false), 3);
 
         Game.Board = new char[3][] {
         new char [] {'X',' ','X'},
         new char [] {' ','O',' '},
         new char [] {' ',' ','X'}  };
 
-        Assert.AreEqual(AI.EvaluatePosition(Game.CharArrayToList(Game.Board)), 0);
+        Assert.AreEqual(AI.EvaluatePosition(Game.CharArrayToList(Game.Board), false), 0);
 
 
         Game.Board = new char[3][] {
@@ -90,21 +87,19 @@ public class LinkedListNodeTests
         new char [] {'X','O','X'},
         new char [] {'X',' ','O'}  };
 
-        Assert.AreEqual(AI.EvaluatePosition(Game.CharArrayToList(Game.Board)), -3);
+        Assert.AreEqual(AI.EvaluatePosition(Game.CharArrayToList(Game.Board), true), -3);
 
         Game.Board = new char[3][] {
         new char [] {'O',' ','O'},
         new char [] {'X','X','O'},
         new char [] {'X','X','O'}  };
 
-        Assert.AreEqual(AI.EvaluatePosition(Game.CharArrayToList(Game.Board)), -3);
+        Assert.AreEqual(AI.EvaluatePosition(Game.CharArrayToList(Game.Board), true), -3);
     }
 
     [Test]
     public void TestTranslateCoord()
     {
-        Game test = new Game();
-
         Assert.AreEqual(Game.TranslateCoord(1), new int[] { 0, 0 });
         Assert.AreEqual(Game.TranslateCoord(2), new int[] { 0, 1 });
         Assert.AreEqual(Game.TranslateCoord(3), new int[] { 0, 2 });
@@ -117,7 +112,13 @@ public class LinkedListNodeTests
     [Test]
     public void TestTranslateMove()
     {
-        Assert.AreEqual(Game.TranslateMove("1"), new Move(false, 0, 0, "1"));
+        Move m = Game.TranslateMove("1");
+        Assert.True(Game.TranslateMove("1") == new Move(false, 0, 0));
+        Assert.True(Game.TranslateMove("2") == new Move(false, 0, 1));
+        Assert.True(Game.TranslateMove("3") == new Move(false, 0, 2));
+        Assert.True(Game.TranslateMove("5") == new Move(false, 1, 1));
+        Assert.True(Game.TranslateMove("7") == new Move(false, 2, 0));
+        Assert.True(Game.TranslateMove("9") == new Move(false, 2, 2));
     }
 
 
@@ -145,21 +146,138 @@ public class LinkedListNodeTests
 
 
     [Test]
-    public void TestNode() 
+    public void TestNodeRecursion()
     {
-        AI ai = new AI();
-        AI.SearchDepth = 9;
-
         AI.Node node = new AI.Node(Game.CharArrayToList(new char[3][] {
         new char [] {' ',' ',' '},
         new char [] {' ',' ',' '},
         new char [] {' ',' ',' '}
-        }), true, null, 1);
+        }), true, new Move(true, 0, 0, true), 1);
 
-        
+
         Assert.True(true); // the point of this test is to see if the recursion  works and doesn't get stuck in an infinte loop 
         // if it doesn't blow up it passed 
     }
 
+    [Test]
+    public void TestFindBestMoveImpossibleDifficulty()
+    {
+        AI.SwitchDifficulty(AI.Difficulty.Impossible);
+
+        AI.Node node1 = new AI.Node(Game.CharArrayToList(new char[3][] {
+        new char [] {'X','O',' '},
+        new char [] {'X','O',' '},
+        new char [] {'O',' ',' '}
+        }), true, new Move(true, 0, 0, true), 1);
+
+        Assert.True(node1.BestMove == new Move(true, 2, 1));
+
+
+        AI.Node node2 = new AI.Node(Game.CharArrayToList(new char[3][] {
+        new char [] {'X',' ',' '},
+        new char [] {'O','X',' '},
+        new char [] {' ',' ','O'}
+        }), true, new Move(true, 0, 0, true), 1);
+
+        Assert.True(node2.BestMove == new Move(true, 0, 1) || node2.BestMove == new Move(true, 0, 2));
+
+
+        AI.Node node3 = new AI.Node(Game.CharArrayToList(new char[3][] {
+        new char [] {'X','O',' '},
+        new char [] {'X',' ',' '},
+        new char [] {'O',' ',' '}
+        }), true, new Move(true, 0, 0, true), 1);
+
+        Assert.True(node3.BestMove == new Move(true, 1, 1));
+    }
+
+    [Test]
+    public void TestFindBestMoveEasyDifficulty()
+    {
+        AI.SwitchDifficulty(AI.Difficulty.Easy);
+
+        AI.Node node1 = new AI.Node(Game.CharArrayToList(new char[3][] {
+        new char [] {'X','O',' '},
+        new char [] {'X','X','O'},
+        new char [] {'O',' ',' '}
+        }), true, new Move(true, 0, 0, true), 1);
+
+        Assert.True(node1.BestMove == new Move(true, 2, 2));
+
+
+        AI.Node node2 = new AI.Node(Game.CharArrayToList(new char[3][] {
+        new char [] {'X',' ',' '},
+        new char [] {'O','X',' '},
+        new char [] {' ',' ','O'}
+        }), true, new Move(true, 0, 0, true), 1);
+
+        Assert.False(node2.BestMove == new Move(true, 0, 1) || node2.BestMove == new Move(true, 0, 2));
+        //  this makes sure the AI is not too strong at this this difficulty
+
+
+        AI.Node node3 = new AI.Node(Game.CharArrayToList(new char[3][] {
+        new char [] {'X','O',' '},
+        new char [] {'X',' ',' '},
+        new char [] {'O',' ',' '}
+        }), true, new Move(true, 0, 0, true), 1);
+
+        Assert.False(node3.BestMove == new Move(true, 1, 1));
+    }
+
+    [Test]
+    public void TestAIPlaysLegally()
+    {
+        Game.Board = new char[3][] {
+        new char [] {'X',' ',' '},
+        new char [] {' ',' ',' '},
+        new char [] {' ','X','O'}  };
+
+        List<Point> FreeCells = new List<Point> { };
+
+        for (int y = 0; y < Game.Board.Length; y++)
+        {
+            for (int x = 0; x < Game.Board[y].Length; x++)
+            {
+                Point p = new Point();
+                p.coordinateY = y;
+                p.coordinateX = x;
+                if (p.Validate() && Game.Board[p.coordinateY][p.coordinateX] == ' ')
+                    FreeCells.Add(p);
+            }
+        }
+
+        // REQUIREMENT 15, use of a generic datatype
+
+        // Had to use IEnumetaror because it Move does not have a definition for GetEnumerator and would not work with a foreach loop, uncomment the code below to see.
+        List<Move> ListOfMoves = AI.GetPossibleMoves(Game.CharArrayToList(Game.Board));
+        IEnumerator<Move> iterator = ListOfMoves.GetEnumerator();
+
+        while (iterator.MoveNext())
+        {
+            Move m = iterator.Current;
+            bool IsInList = false;
+            foreach (Point p in FreeCells)
+            {   
+                if (m == p)
+                IsInList = true;  
+            }
+            Assert.True(IsInList);
+        }
+
+        // This would say m does not exist in the current context
+
+        // foreach (Move m in AI.GetPossibleMoves(Game.CharArrayToList(Game.Board))) ;
+        // {
+        //     bool IsInList = false;
+        //     foreach (Point p in FreeCells)
+        //     {   
+        //         if (m == p)
+        //         IsInList = true;  
+        //     }
+        //     Assert.True(IsInList);
+        // }
+
+
+    }
 }
 

@@ -3,11 +3,13 @@ namespace Classes;
 
 public interface Game
 {
-    public static char[][] Board = new char[3][] {
+    public static char[][] Board = new char[][] {
         new char [] {' ',' ',' '},
         new char [] {' ',' ',' '},
         new char [] {' ',' ',' '}
     };
+
+    public enum GameResult { Draw, AiWon, PlayerWon};
 
     public static bool IsAiTurn = true;
 
@@ -17,7 +19,8 @@ public interface Game
     {
         if (m.PlayedByAi == IsAiTurn && Board[m.coordinateY][m.coordinateX] == ' ')
             return true;
-        else return false;
+        else
+            return false;
     }
  
     public static bool IsBoardFull()
@@ -36,7 +39,7 @@ public interface Game
         return new Move(false, position[0], position[1]);
     }
 
-    public static int[] TranslateCoord(int i)
+    public static int[] TranslateCoord(int i) 
     {
         int adjustment = 0;
         int a2 = 1;
@@ -89,6 +92,8 @@ public interface Game
             }
         }
         return false;
+
+        
     }
 
     public static void PrintMap()
@@ -111,13 +116,57 @@ public interface Game
         return output;
     }
 
+    // function that runs the Game
     public static void StartGame()
     {
-
+        // Chooses at random who will play the first move
         Random rnd = new Random();
-        if (rnd.Next(1, 3) == 2) IsAiTurn = true;
-        else IsAiTurn = false;
+        if (rnd.Next(1, 3) == 2) 
+            IsAiTurn = true;
+        else 
+            IsAiTurn = false;
 
+        Console.Clear();
+
+        Console.WriteLine("Use the keyboard to select the level of difficulty.\n");
+        Console.WriteLine("A: Easy");
+        Console.WriteLine("B: Intermediate");
+        Console.WriteLine("C: Hard");
+        Console.WriteLine("D: Impossible");
+
+        bool ProperInput = false;
+        while (!ProperInput)
+        {
+            switch(Console.ReadKey(true).Key)
+            {
+                case ConsoleKey.A:
+                {
+                    AI.SwitchDifficulty(AI.Difficulty.Easy);
+                    ProperInput = true;
+                    break;
+                }
+                case ConsoleKey.B:
+                {
+                    AI.SwitchDifficulty(AI.Difficulty.Intermediate);
+                    ProperInput = true;
+                    break;
+                }
+                case ConsoleKey.C:
+                {
+                    AI.SwitchDifficulty(AI.Difficulty.Hard);
+                    ProperInput = true;
+                    break;
+                }
+                case ConsoleKey.D:
+                {
+                    AI.SwitchDifficulty(AI.Difficulty.Impossible);
+                    ProperInput = true;
+                    break;
+                }
+            }
+        }
+
+        
         while (ContinueGame)
         {
             if (IsAiTurn)
@@ -129,8 +178,8 @@ public interface Game
                 Thread.Sleep(0);
                 ExecuteMove(AI.GetBestMove(CharArrayToList(Board)));
 
-                if (IsCheckMate()) EndGame(true);
-                else if (IsBoardFull()) EndGame();
+                if (IsCheckMate()) EndGame(GameResult.AiWon);
+                else if (IsBoardFull()) EndGame(GameResult.Draw);
 
                 IsAiTurn = false;
             }
@@ -144,8 +193,8 @@ public interface Game
                 string move = Console.ReadLine();
                 ExecuteMove(TranslateMove(move));
 
-                if (IsCheckMate()) EndGame(false);
-                else if (IsBoardFull()) EndGame();
+                if (IsCheckMate()) EndGame(GameResult.PlayerWon);
+                else if (IsBoardFull()) EndGame(GameResult.Draw);
 
                 IsAiTurn = true;
             }
@@ -153,23 +202,24 @@ public interface Game
 
     }
 
-    public static void EndGame(bool? AiWon = null)
+    public static void EndGame(GameResult result)
     {
-        if (AiWon == true)
+
+        if (result == GameResult.AiWon)
         {
             Console.Clear();
             ContinueGame = false;
             Console.WriteLine("\n The computer won.\n");
             PrintMap();
         }
-        else if (AiWon == false)
+        else if (result == GameResult.PlayerWon)
         {
             ContinueGame = false;
             Console.Clear();
             Console.WriteLine("\n You won.\n");
             PrintMap();
         }
-        else
+        else if (result == GameResult.Draw)
         {
             ContinueGame = false;
             Console.Clear();

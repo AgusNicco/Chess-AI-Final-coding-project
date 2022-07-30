@@ -48,6 +48,7 @@ and file Tests, line 253
         We had to use IEnumerable on the Tests because we needed to iterate through a list of Moves and the Move class does not contain a definition for .GetEnumerator(). If we tried to do it with a foreach loop it would not work, we left some code that can be uncommented to verify this. 
 
 Extra credit:
+
 2. Recursion -  File AI, line 252
         The Node constructor uses recursion to call itself and create a Node for each possible move in the position and the uses a backpropagation process to pull the score from the nodes ahead.
 

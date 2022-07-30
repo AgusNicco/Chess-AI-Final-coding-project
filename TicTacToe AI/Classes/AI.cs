@@ -1,6 +1,7 @@
 namespace Classes;
 
 
+// REQUIREMENT 14, a second interface. It holds every function and property the AI needs in order to receive a given postion and return the best move. 
 public interface AI
 {
     // REQUIREMENT 11, this is one of many examples in which properties are used

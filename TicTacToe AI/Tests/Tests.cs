@@ -43,7 +43,7 @@ public class LinkedListNodeTests
     [Test]
     public void TestEvaluatePosition()
     {
-        AI.SwitchDifficulty(AI.Difficulty.Impossible);
+        AI.SwitchDifficulty(AI.Difficulty.Easy);
         Game.Board = new char[3][] {
         new char [] {' ',' ','X'},
         new char [] {' ','X',' '},

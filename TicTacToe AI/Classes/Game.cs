@@ -2,6 +2,7 @@ namespace Classes;
 
 
 // Contains every funtion and property that is required to play a game of TicTacToe. It receives user input and validates moves
+// REQUIREMENT 13, an interface
 public interface Game
 {
     public static char[][] Board = new char[][] {   // public for testing purposes

@@ -11,6 +11,7 @@ public interface AI
 
     public enum Difficulty { Easy, Intermediate, Hard, Impossible }
 
+    // Switches the depth of the search according to the level of difficulty
     public static void SwitchDifficulty(Difficulty d)
     {
         switch (d)
@@ -117,6 +118,47 @@ public interface AI
                 return -2;
             if (Board[2][0] == EnemySkin && Board[1][1] == EnemySkin && Board[0][2] == ' ') 
                 return -2;
+
+
+            // Check for positive threats
+            int NumberOfThreats = 0;
+            for (int y = 0; y < Board.Count(); y++) // horizontal
+            {
+                int x = 0;
+                if (Board[y][x] == ' ' && Board[y][x + 1] == Skin && Board[y][x + 2] == Skin)
+                    NumberOfThreats++;
+                if (Board[y][x] == Skin && Board[y][x + 1] == ' ' && Board[y][x + 2] == Skin)
+                    NumberOfThreats++;
+                if (Board[y][x] == Skin && Board[y][x + 1] == Skin && Board[y][x + 2] == ' ')
+                    NumberOfThreats++;
+            }
+            for (int x = 0; x < Board.Count(); x++) // vertical
+            {
+                int y = 0;
+                if (Board[y][x] == ' ' && Board[y + 1][x] == Skin && Board[y + 2][x] == Skin)
+                    NumberOfThreats++;
+                if (Board[y][x] == Skin && Board[y + 1][x] == ' ' && Board[y + 2][x] == Skin)
+                    NumberOfThreats++;
+                if (Board[y][x] == Skin && Board[y + 1][x] == Skin && Board[y + 2][x] == ' ')
+                    NumberOfThreats++;
+            }
+            
+            // Diagonal 
+            if (Board[0][0] == ' ' && Board[1][1] == Skin && Board[2][2] == Skin) 
+                NumberOfThreats++; 
+            if (Board[0][0] == Skin && Board[1][1] == ' ' && Board[2][2] == Skin) 
+                NumberOfThreats++;
+            if (Board[0][0] == Skin && Board[1][1] ==  Skin && Board[2][2] == ' ') 
+                NumberOfThreats++;
+
+            if (Board[2][0] == ' ' && Board[1][1] == Skin && Board[0][2] == Skin) 
+                NumberOfThreats++;
+            if (Board[2][0] == Skin && Board[1][1] == ' ' && Board[0][2] == Skin) 
+                NumberOfThreats++;
+            if (Board[2][0] == Skin && Board[1][1] == Skin && Board[0][2] == ' ') 
+                NumberOfThreats++;
+                
+            return NumberOfThreats;
         }
 
         return 0;
@@ -149,21 +191,21 @@ public interface AI
     }
 
 
-    public static int NumberOfNodes = 0; // public for testing 
+    public static int NumberOfNodes = 0; // created and set to public for testing purposes
     
+    // REQUIREMENT 2, an instance of a class
     // Class used to store a hypothetical move, score it and create a the decision-making tree
     public class Node
     {
         private readonly bool MyMove;
         private readonly int Layer;
         private double Score; 
-        private readonly Move? PlayedMove;
+        private Move? PlayedMove { get; }
         public Move BestMove; // public for testing and for the GetBestMove() function
         private List<Move>? MovesToReachPosition; 
         private bool ShouldBranch;
         private List<Node>? BranchOfNodes;
         private bool Propagated = false;
-
 
         public Node(List<char[]> position, bool mymove = true, Move move = null, int layer = 0, List<Move>? movesToReachPosition = null)
         {
@@ -172,6 +214,8 @@ public interface AI
             Layer = layer;
             NumberOfNodes++;
 
+            if (move.FirstMove)
+                NumberOfNodes = 0;
 
             if (movesToReachPosition == null)
                 movesToReachPosition = new List<Move> { };
@@ -233,7 +277,8 @@ public interface AI
                         BestMove = n.PlayedMove;
                     }
                 }
-                if (Propagated) Score = num - 0.01;
+                if (Propagated) 
+                    Score = num - 0.01;
             }
         }
 
@@ -307,11 +352,11 @@ public interface AI
             }
             return pos;
         }
-
     }
 
     private static Move DefaultMove = new Move(false, 0, 99);
 
+    // Receives a position and returns the BestMove in the position
     public static Move GetBestMove(List<char[]> position)
     {
         Node TreeOfMoves = new Node(position, true, DefaultMove, 0);

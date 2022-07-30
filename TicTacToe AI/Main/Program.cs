@@ -22,6 +22,5 @@ public class Program
         ConsoleKey key = Console.ReadKey(true).Key;
 ;
         Game.StartGame();
-        
     }
 }

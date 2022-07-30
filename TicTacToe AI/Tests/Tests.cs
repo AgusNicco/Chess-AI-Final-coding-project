@@ -123,7 +123,7 @@ public class LinkedListNodeTests
 
 
     [Test]
-    public void TestReference()
+    public void TestReference() // this test confirms the need for passing by value in the node class with the DoMoveWithCleanCopy()
     {
         char[][] x = new char[3][] {
         new char [] {' ','O',' '},
@@ -278,6 +278,81 @@ public class LinkedListNodeTests
         // }
 
 
+    }
+
+    [Test]
+    public void TestDepthOfSearch()
+    {
+       
+        AI.NumberOfNodes = 0;
+        AI.SwitchDifficulty(AI.Difficulty.Easy);
+
+        Game.Board = new char[3][] {
+        new char [] {' ',' ',' '},
+        new char [] {' ',' ',' '},
+        new char [] {' ',' ',' '}  };
+
+        Move move = AI.GetBestMove(Game.CharArrayToList(Game.Board));
+
+        Assert.True(AI.NumberOfNodes > 1 && AI.NumberOfNodes < 100);
+
+
+        AI.NumberOfNodes = 0;
+        AI.SwitchDifficulty(AI.Difficulty.Intermediate);
+
+        Game.Board = new char[3][] {
+        new char [] {' ',' ',' '},
+        new char [] {' ',' ',' '},
+        new char [] {' ',' ',' '}  };
+
+        Move move2 = AI.GetBestMove(Game.CharArrayToList(Game.Board));
+
+        Assert.True(AI.NumberOfNodes > 100 && AI.NumberOfNodes < 1000);
+
+
+        AI.NumberOfNodes = 0;
+        AI.SwitchDifficulty(AI.Difficulty.Hard);
+
+        Game.Board = new char[3][] {
+        new char [] {' ',' ',' '},
+        new char [] {' ',' ',' '},
+        new char [] {' ',' ',' '}  };
+
+        Move move3 = AI.GetBestMove(Game.CharArrayToList(Game.Board));
+
+        Assert.True(AI.NumberOfNodes > 1000 && AI.NumberOfNodes < 10000);
+
+
+        AI.NumberOfNodes = 0;
+        AI.SwitchDifficulty(AI.Difficulty.Impossible);
+
+        Game.Board = new char[3][] {
+        new char [] {' ',' ',' '},
+        new char [] {' ',' ',' '},
+        new char [] {' ',' ',' '}  };
+
+        Move move4 = AI.GetBestMove(Game.CharArrayToList(Game.Board));
+
+        Assert.True(AI.NumberOfNodes > 300000 && AI.NumberOfNodes < 1000000);
+    }
+
+    [Test]
+    public void TestIsBoardFull()
+    {
+        Game.Board = new char[3][] {
+        new char [] {'X','O','X'},
+        new char [] {'O','X','O'},
+        new char [] {'O','X','O'}  };
+
+        Assert.True(Game.IsBoardFull());
+
+
+        Game.Board = new char[3][] {
+        new char [] {'X','O','X'},
+        new char [] {' ','X','O'},
+        new char [] {'O','X','O'}  };
+
+        Assert.False(Game.IsBoardFull());
     }
 }
 

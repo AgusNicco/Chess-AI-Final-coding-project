@@ -4,7 +4,7 @@ namespace Classes;
 // Contains every funtion and property that is required to play a game of TicTacToe. It receives user input and validates moves
 public interface Game
 {
-    public static char[][] Board = new char[][] {
+    public static char[][] Board = new char[][] {   // public for testing purposes
         new char [] {' ',' ',' '},
         new char [] {' ',' ',' '},
         new char [] {' ',' ',' '}
@@ -14,6 +14,7 @@ public interface Game
 
     private static bool IsAiTurn = true; 
     private static bool ContinueGame = true;
+
 
     // Verifies that the AI or Player did not make an illegal move
     private static bool IsMoveLegal(Move m)
@@ -25,7 +26,7 @@ public interface Game
     }
  
     // Checks if there is any cell avalible in the board. 
-    private static bool IsBoardFull()
+    public static bool IsBoardFull()  // public for testing
     {
         for (int y = 0; y < Board.Length; y++)
         {
@@ -90,9 +91,15 @@ public interface Game
                 char c = Board[y][x];
                 if (c != ' ')
                 {
-                    try { if (Board[y][x - 1] == c && Board[y][x + 1] == c) return true; } catch (IndexOutOfRangeException) { }; // horizontal check
-                    try { if (Board[y - 1][x] == c && Board[y + 1][x] == c) return true; } catch (IndexOutOfRangeException) { };// vertical check
-                    try { if (Board[y - 1][x - 1] == c && Board[y + 1][x + 1] == c || Board[y + 1][x - 1] == c && Board[y - 1][x + 1] == c) return true; } catch (IndexOutOfRangeException) { }; // diagonal check
+                    try { 
+                        if (Board[y][x - 1] == c && Board[y][x + 1] == c) return true; // horizontal check
+                    } catch (IndexOutOfRangeException) { }; // horizontal check
+                    try { 
+                        if (Board[y - 1][x] == c && Board[y + 1][x] == c) return true; 
+                    } catch (IndexOutOfRangeException) { };// vertical check
+                    try { 
+                        if (Board[y - 1][x - 1] == c && Board[y + 1][x + 1] == c || Board[y + 1][x - 1] == c && Board[y - 1][x + 1] == c) return true; 
+                    } catch (IndexOutOfRangeException) { }; // diagonal check
                 }
             }
         }

@@ -2,11 +2,11 @@ namespace  Classes;
 
 
 // REQUIREMENTS 2 and 6, a second class definition that inherits properties of a another class.
-// This class is used to create a move on certain coordinates and contains a boolean that determines if the which player made the Move and if the Move is the first Move
+// This class is used to create a move on certain coordinates and contains booleans that determine if the which player made the Move and if the Move is the first Move
 public class Move : Point
 {
-    public bool PlayedByAi;
-    public bool FirstMove;
+    public readonly bool PlayedByAi;
+    public readonly bool FirstMove;
 
 
     // EXTRA CREDIT REQUIREMENT olverloading the operators '==' and '!=' in order to be able to compare moves

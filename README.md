@@ -1,10 +1,11 @@
+For our final project we tried to create a Chess AI that was capable of finding the best moves in a given position using a brute-force approach. We were able to create a TicTacToc AI that used the technique but we failed to apply the logic on the Chess AI. We underestimated how much processing times this kind of a approach takes and we were unable to make the Chess AI work. As it was explained in the video, this tecnique combines two functions, GetPossibleMoves() and EvaluatePosition() to create a decision making tree. We were able to create the GetPossibleMoves() for the ChessAI but by the time we were done with that one we realised it was taking too much time, and we couldn't find a way to make a working EvaluatePosition() function. 
 
-CheckPoint 1:
-We made an AI that can play TicTacToe to make sure the technique we are going to use on the Chess AI works properly. Even though the rules of the games are different, we will use the exact same methods and members with similar functioning. The most relevant advancement we have made is the Node class (which is nested in the AI class). The AI is able to analyze the ~300 thousand (9!) possible games of TicTacToe and plays in 3 seconds and plays perfectly. 
+The TicTacToe AI is were all of the requiremens will be found, but We also included Chess AI in the submission to show the scope of our project. It has one of the three fundamental parts of a brute-force AI. The funcion is tested and works perfectly. 
 
-Checkpoint 2:
-We made a Game class that will hold the Board of the game as well as the coordinates for each of each player's pieces. We also created the GetLegalMoves()function, file Game, line 202. This funcion, along with EvaluatePostition() and the Node class is one of the most important elements of the program. Lastly, we added an struct on the file Game, line 533.
+This project put our problem-solving abilities to the test and we really enoyed doing it. When we have more time we are going to come back and attempt to finish the Chess AI, but for now, we are happy with what we have.
 
+
+Requirements:
 
 1. a class definition - File Classes class Game in line 3
         This class is in charge of runnign the Game. It will have a function that validate the moves and check if the game is over.

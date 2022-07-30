@@ -248,7 +248,7 @@ public class LinkedListNodeTests
 
         // REQUIREMENT 15, use of a generic datatype
 
-        // Had to use IEnumetaror because it Move does not have a definition for GetEnumerator and would not work with a foreach loop, uncomment the code below to see.
+        // Had to use IEnumetaror because Move does not have a definition for GetEnumerator and would not work with a foreach loop, uncomment the code below to see.
         List<Move> ListOfMoves = AI.GetPossibleMoves(Game.CharArrayToList(Game.Board));
         IEnumerator<Move> iterator = ListOfMoves.GetEnumerator();
 
@@ -264,7 +264,7 @@ public class LinkedListNodeTests
             Assert.True(IsInList);
         }
 
-        // This would say m does not exist in the current context
+        // This would say 'm' does not exist in the current context
 
         // foreach (Move m in AI.GetPossibleMoves(Game.CharArrayToList(Game.Board))) ;
         // {

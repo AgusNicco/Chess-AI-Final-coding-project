@@ -3,9 +3,8 @@ namespace Classes;
 
 public interface AI
 {
-    private static char[][] Board = Game.Board;
-    private static char[][] TheoricalBoard = Board;
-    private static int SearchDepth = 9;
+    // REQUIREMENT 11, this is one of many examples in which properties are used
+    private static int SearchDepth { get; set; }
     private static char Skin = 'X';
     private static char EnemySkin = 'O';
 
@@ -38,6 +37,11 @@ public interface AI
                 }
         }
     }
+
+    // REQUIREMENT 12, one of many examples of a static member function
+    
+    // Receives a given position and returns an integer score according to how convenient it is for the AI, if the position is lost it's a -3, if it is Won a 3 and if it is a draw a 0.
+    // It has additional checks for the Impossible level of difficulty 
 
     // set to public for testing purposes
     public static double EvaluatePosition(List<char[]> Board = null, bool AiMove = true)
@@ -118,6 +122,9 @@ public interface AI
         return 0;
     }
 
+
+    // Receives a given position and returns a List with all the Legal moves that are possible in the position
+
     // set to public for testing purposes
     public static List<Move> GetPossibleMoves(List<char[]> Board = null, bool playedByAi = true)
     {
@@ -144,17 +151,18 @@ public interface AI
 
     public static int NumberOfNodes = 0; // public for testing 
     
+    // Class used to store a hypothetical move, score it and create a the decision-making tree
     public class Node
     {
-        public bool MyMove;
-        public int Layer;
-        public double Score;
-        public Move? PlayedMove;
-        public Move BestMove;
-        public List<Move>? MovesToReachPosition;
-        public bool ShouldBranch;
-        public List<Node>? BranchOfNodes;
-        public bool Propagated = false;
+        private readonly bool MyMove;
+        private readonly int Layer;
+        private double Score; 
+        private readonly Move? PlayedMove;
+        public Move BestMove; // public for testing and for the GetBestMove() function
+        private List<Move>? MovesToReachPosition; 
+        private bool ShouldBranch;
+        private List<Node>? BranchOfNodes;
+        private bool Propagated = false;
 
 
         public Node(List<char[]> position, bool mymove = true, Move move = null, int layer = 0, List<Move>? movesToReachPosition = null)
@@ -164,17 +172,19 @@ public interface AI
             Layer = layer;
             NumberOfNodes++;
 
+
             if (movesToReachPosition == null)
                 movesToReachPosition = new List<Move> { };
 
             MovesToReachPosition = new List<Move> { };
-            foreach (Move m in movesToReachPosition)
+            foreach (Move m in movesToReachPosition) // Assures the new list has a clean copy
             {
                 MovesToReachPosition.Add(m);
             }
             MovesToReachPosition.Add(move);
+
             
-            List<char[]> Position = DoMoveWithCleanCopy( position, PlayedMove);
+            List<char[]> Position = DoMoveWithCleanCopy(position, PlayedMove);
 
             ShouldBranch = Layer <= AI.SearchDepth;
 
@@ -187,18 +197,19 @@ public interface AI
             if (ListOfMoves.Count() == 0 || Math.Abs(Score) == 3) 
                 ShouldBranch = false;
 
-            // braching process
+            // branching process
             if (ShouldBranch)
             {
                 BranchOfNodes = new List<Node> { };
 
                 foreach (Move m in ListOfMoves)
                 {
-                    // var NewPosition = Position.Select(ca=>ca.Select(c=>c).ToArray()).ToList();
+                    // EXTRA CREDIT recursion
                     BranchOfNodes.Add(new Node(Position, !MyMove, m, Layer + 1));
                 }
             }
             else BranchOfNodes = null;
+
 
             // Backpropagation of score 
             if (ShouldBranch)
@@ -226,6 +237,7 @@ public interface AI
             }
         }
 
+        // This function executes a move on a position but does not return a clean copy.
         public List<char[]> BruteDoMove(List<char[]> pos, Move m)
         {
             if (m != null)
@@ -247,6 +259,7 @@ public interface AI
             return pos;
         }
 
+        // Executes a move on a position and returns a clean copy
         public List<char[]> DoMoveWithCleanCopy(List<char[]> pos, Move? m)
         {
 
@@ -295,15 +308,14 @@ public interface AI
             return pos;
         }
 
-        
     }
 
     private static Move DefaultMove = new Move(false, 0, 99);
 
     public static Move GetBestMove(List<char[]> position)
     {
-        Node node = new Node(position, true, DefaultMove, 0);
-        return node.BestMove;
+        Node TreeOfMoves = new Node(position, true, DefaultMove, 0);
+        return TreeOfMoves.BestMove;
     }
 }
 

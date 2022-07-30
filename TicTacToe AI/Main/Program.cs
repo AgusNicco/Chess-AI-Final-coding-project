@@ -17,27 +17,11 @@ public class Program
         Console.WriteLine($"|7|8|9|");
         Console.WriteLine($"+-+-+-+\n");
 
-        Console.Write("Press any key to start.");
+        Console.Write("Press any key to select the level of difficulty.");
         
         ConsoleKey key = Console.ReadKey(true).Key;
-
-        // Game game = new Game();
+;
         Game.StartGame();
-        
-        
-        // Console.Clear();
-        // Stopwatch stop = new Stopwatch();
-        // stop.Start();
-
-        // AI.Node Node = new AI.Node(Game.CharArrayToList(new char[3][] {
-        // new char [] {' ',' ',' '},
-        // new char [] {' ',' ',' '},
-        // new char [] {' ',' ',' '}
-        // }), true, null, 1);
-
-        // stop.Stop();
-        // Console.WriteLine(stop.Elapsed);
-        // Console.WriteLine(AI.NumberOfNodes);
         
     }
 }

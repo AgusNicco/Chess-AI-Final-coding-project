@@ -1,6 +1,7 @@
 namespace Classes;
 
 
+// Contains every funtion and property that is required to play a game of TicTacToe. It receives user input and validates moves
 public interface Game
 {
     public static char[][] Board = new char[][] {
@@ -11,11 +12,11 @@ public interface Game
 
     public enum GameResult { Draw, AiWon, PlayerWon};
 
-    public static bool IsAiTurn = true;
+    private static bool IsAiTurn = true; 
+    private static bool ContinueGame = true;
 
-    public static bool ContinueGame = true;
-
-    public static bool IsMoveLegal(Move m)
+    // Verifies that the AI or Player did not make an illegal move
+    private static bool IsMoveLegal(Move m)
     {
         if (m.PlayedByAi == IsAiTurn && Board[m.coordinateY][m.coordinateX] == ' ')
             return true;
@@ -23,7 +24,8 @@ public interface Game
             return false;
     }
  
-    public static bool IsBoardFull()
+    // Checks if there is any cell avalible in the board. 
+    private static bool IsBoardFull()
     {
         for (int y = 0; y < Board.Length; y++)
         {
@@ -33,12 +35,14 @@ public interface Game
         return true;
     }
 
+    // Used to translate a mode from string format (user input) to input class
     public static Move TranslateMove(string s)
     {
         int[] position = TranslateCoord(int.Parse(s));
         return new Move(false, position[0], position[1]);
     }
 
+    // made public for testing purposes
     public static int[] TranslateCoord(int i) 
     {
         int adjustment = 0;
@@ -53,6 +57,7 @@ public interface Game
         else return new int[] { i / 3 - adjustment, i % 3 - a2 };
     }
 
+    // Used once the game has started to execute a move a player chose to make only if it is legal
     public static void ExecuteMove(Move m)
     {
         if (IsMoveLegal(m))
@@ -75,7 +80,7 @@ public interface Game
         }
     }
 
-    // works fine
+    // Checks if any of the players has won
     public static bool IsCheckMate()
     {
         for (int y = 0; y < Board.Count(); y++)
@@ -96,9 +101,9 @@ public interface Game
         
     }
 
-    public static void PrintMap()
+    // Used to print and display the map in the console
+    private static void PrintMap()
     {
-        // Console.Clear();
         Console.WriteLine($"+-+-+-+");
         Console.WriteLine($"|{Board[0][0]}|{Board[0][1]}|{Board[0][2]}|");
         Console.WriteLine($"+-+-+-+");
@@ -108,6 +113,7 @@ public interface Game
         Console.WriteLine($"+-+-+-+");
     }
 
+    // Used to convert a Char array into a list
     public static List<char[]> CharArrayToList(char[][] ca)
     {
         List<char[]> output = new List<char[]> { };
@@ -116,7 +122,40 @@ public interface Game
         return output;
     }
 
-    // function that runs the Game
+    // Returns a list of points with all of the empty cells in a given Position
+    private static List<Point> GetFreeCells(char[][] board)
+    {
+        List<Point> output = new List<Point> {};
+       
+        for (int y = 0; y < board.Length; y++)
+        {
+            for (int x = 0; x < board[y].Length; x++)
+            {
+                if (board[y][x]==' ')
+                {   
+                    Point p = new Point(); 
+                    p.coordinateX = x;
+                    p.coordinateY = y;
+                    output.Add(p);
+                }
+            }
+        }
+        return output;
+    }
+
+    // returns true if a given move is in a list of points
+    private static bool IsInListOfPoints(List<Point> List, Move Point)
+    {
+        foreach(Point p in List)
+        {
+            if (Point == p)
+                return true;
+        }
+        return false;
+    }
+
+
+    // This function combines most of the functions above to create a game and receive input from the player as well as the AI
     public static void StartGame()
     {
         // Chooses at random who will play the first move
@@ -134,6 +173,7 @@ public interface Game
         Console.WriteLine("C: Hard");
         Console.WriteLine("D: Impossible");
 
+        // Asks the player to set the difficulty
         bool ProperInput = false;
         while (!ProperInput)
         {
@@ -166,7 +206,7 @@ public interface Game
             }
         }
 
-        
+        // Here is where the game is run
         while (ContinueGame)
         {
             if (IsAiTurn)
@@ -189,9 +229,31 @@ public interface Game
                 Console.WriteLine("You will play.\n");
                 PrintMap();
 
-                Console.Write("\nInput your move: ");
-                string move = Console.ReadLine();
-                ExecuteMove(TranslateMove(move));
+                // input validation
+                int i;
+                bool repeat = true;
+                
+                while (repeat)
+                {
+                    Console.Write("\nInput your move: ");
+                    string move = Console.ReadLine();
+
+                    if (int.TryParse(move, out i))
+                    {
+                        
+                        if (IsInListOfPoints(GetFreeCells(Game.Board), TranslateMove(move))) 
+                        {    
+                            ExecuteMove(TranslateMove(move));
+                            repeat = false;
+                        }
+                        else 
+                        {
+                            Console.WriteLine("\nYou tried to play an illegal move!");
+                        }
+                    }
+                    else 
+                        Console.WriteLine("Your input is in the wrong format.");
+                }
 
                 if (IsCheckMate()) EndGame(GameResult.PlayerWon);
                 else if (IsBoardFull()) EndGame(GameResult.Draw);
@@ -202,6 +264,7 @@ public interface Game
 
     }
 
+    // Ends the game and inputs a text message according to the result of the game.
     public static void EndGame(GameResult result)
     {
 
